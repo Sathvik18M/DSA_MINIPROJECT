@@ -1,0 +1,14 @@
+{
+  "name": "fieldwork-minesweeper",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A thoughtfully made Minesweeper game powered by a two-dimensional array.",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/serve.mjs dist",
+    "test": "node --test"
+  },
+  "engines": { "node": ">=22" }
+}

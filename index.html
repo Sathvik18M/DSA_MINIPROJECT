@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#edf2ec">
+  <meta name="description" content="Meet Fieldwork: a fresh take on classic Minesweeper. Pick a difficulty, follow the numbers, and find a little focus. Free to play, no account needed.">
+  <title>Fieldwork — A little game of Minesweeper</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./src/app.js"></script>
+</head>
+<body>
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4m0 0c5-5 9 5 14 0v10c-5 5-9-5-14 0"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 1 7M4 4v6h6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6m-3 0v3"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7Z"/></symbol>
+    <symbol id="i-mine" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 2v5m0 10v5M2 12h5m10 0h5M5 5l3 3m8 8 3 3M5 19l3-3m8-8 3-3"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4Zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></symbol>
+    <symbol id="i-muted" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4Zm5 4 6 6m0-6-6 6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-pointer" viewBox="0 0 24 24"><path d="m5 3 14 9-7 2-3 7Z"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M7 3h10v6a5 5 0 0 1-10 0Zm0 2H3v3a4 4 0 0 0 4 4m10-7h4v3a4 4 0 0 1-4 4m-5 2v7m-4 0h8"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-4 1-4-2-6-2m12 5v-4c0-1 .1-1.5-.5-2 3.3-.4 6.5-1.6 6.5-7a5.4 5.4 0 0 0-1.5-3.7A5 5 0 0 0 19.4 2S18.2 1.6 15 3a13 13 0 0 0-6 0C5.8 1.6 4.6 2 4.6 2a5 5 0 0 0-.1 3.3A5.4 5.4 0 0 0 3 9c0 5.4 3.2 6.6 6.5 7-.6.5-.6 1.1-.5 2v4"/></symbol>
+  </svg>
+  <a class="skip-link" href="#board">Skip to game</a>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Fieldwork home"><img src="./favicon.svg" width="36" height="36" alt=""><span>fieldwork<span class="brand-period">.</span></span></a>
+      <span class="header-caption">Small game. Clear mind.</span>
+      <nav aria-label="Main navigation">
+        <button class="text-button" id="help-button"><span class="help-symbol">?</span> How to play</button>
+        <button class="icon-button sound-button" id="sound-button" aria-label="Turn sound on" aria-pressed="false" title="Turn sound on"><svg class="icon"><use href="#i-muted"/></svg></button>
+      </nav>
+    </header>
+
+    <main id="main">
+      <div class="page-heading">
+        <div><p class="eyebrow">A LITTLE LOGIC GOES A LONG WAY</p><h1>Minesweeper<span>.</span></h1></div>
+        <p class="intro">Follow the numbers. Trust your instincts.<br>Leave no safe square behind.</p>
+      </div>
+      <div class="game-layout" id="game-layout">
+        <section class="game-card" aria-label="Minesweeper game">
+          <div class="game-options">
+            <div class="difficulty-switch" role="group" aria-label="Difficulty">
+              <button data-level="beginner" aria-pressed="true">Beginner</button>
+              <button data-level="intermediate" aria-pressed="false">Intermediate</button>
+              <button data-level="expert" aria-pressed="false">Expert</button>
+            </div>
+            <span class="board-size" id="board-size">9 × 9 grid</span>
+          </div>
+          <div class="game-toolbar">
+            <div class="readout"><svg class="icon"><use href="#i-flag"/></svg><div><span class="readout-label">MINES LEFT</span><span class="readout-value" id="mine-count">010</span></div></div>
+            <button class="reset-button" id="new-game" title="Start a new game"><svg class="icon"><use href="#i-reset"/></svg><span>New game</span></button>
+            <div class="timer-group"><div class="readout timer-readout"><svg class="icon"><use href="#i-clock"/></svg><div><span class="readout-label">TIME</span><span class="readout-value" id="timer">00:00</span></div></div><button class="icon-button pause-button" id="pause-button" aria-label="Pause game" disabled><svg class="icon"><use href="#i-pause"/></svg></button></div>
+          </div>
+          <div class="play-area" id="play-area">
+            <div class="board-scroll" id="board-scroll" tabindex="-1" aria-label="Game board. Larger boards can be scrolled horizontally.">
+              <div class="board" id="board" role="group" aria-label="Beginner minefield, 9 rows and 9 columns" tabindex="-1"></div>
+            </div>
+            <div class="pause-overlay" id="pause-overlay" hidden><span class="pause-art">Ⅱ</span><h2>A moment to breathe.</h2><p>Your field will be right here.</p><button class="primary-button" id="resume-button"><svg class="icon"><use href="#i-play"/></svg> Keep playing</button></div>
+          </div>
+          <div class="game-message" id="game-message" role="status" aria-live="polite"><span class="message-icon" id="message-icon"><svg class="icon"><use href="#i-pointer"/></svg></span><div><strong id="message-title">Good things start with one click.</strong><span id="message-detail">Pick any square. Your first move is always safe.</span></div></div>
+          <div class="board-controls"><div class="input-switch" role="group" aria-label="Click action"><button id="reveal-mode" aria-pressed="true"><svg class="icon"><use href="#i-pointer"/></svg> Reveal</button><button id="flag-mode" aria-pressed="false"><svg class="icon"><use href="#i-flag"/></svg> Flag</button></div><span class="desktop-hint">Right-click to flag <span class="shortcut">F</span></span><span class="mobile-hint">Tap a square to <span id="touch-action">reveal</span></span></div>
+        </section>
+
+        <aside class="sidebar" aria-label="Game guide and personal records">
+          <section class="field-notes"><div class="notes-heading"><span class="eyebrow">FIELD NOTES</span><span class="tiny-grid" aria-hidden="true">▦</span></div><h2>A little patience.<br>A lot of possibility.</h2><p>Every number is a clue. It tells you how many mines touch that square — even diagonally.</p><div class="example-grid" aria-hidden="true"><span></span><span class="example-mine"><svg class="icon"><use href="#i-mine"/></svg></span><span></span><span></span><span class="example-number">2</span><span></span><span class="example-mine"><svg class="icon"><use href="#i-mine"/></svg></span><span></span><span></span></div><p class="example-caption">One square. Eight neighbors.<br><strong>Two mines to look out for.</strong></p><div class="note-divider"></div><div class="tip-row"><svg class="icon"><use href="#i-flag"/></svg><p>Think there’s a mine?<br><strong>Flag it. Come back later.</strong></p></div></section>
+          <section class="personal-best"><div class="best-heading"><svg class="icon"><use href="#i-trophy"/></svg><h2>Your personal best</h2></div><div class="best-record"><span id="best-time">— —</span><span id="best-level">Beginner</span></div><p id="best-note">A clean field. A time to beat.</p></section>
+          <div class="progress-section"><div><span>Field cleared</span><strong id="progress-label">0 / 71</strong></div><progress id="progress" max="71" value="0" aria-label="Safe squares revealed">0%</progress></div>
+        </aside>
+      </div>
+      <div class="under-game"><span><svg class="icon"><use href="#i-check"/></svg> First move is always safe</span><span>No rush. The next move is yours.</span></div>
+    </main>
+
+    <footer><span>A classic, with a fresh perspective.</span><a href="https://github.com/Sathvik18M/DSA_MINIPROJECT" target="_blank" rel="noreferrer"><svg class="icon"><use href="#i-github"/></svg> The code behind the squares</a><span class="footer-project">A DSA MINI PROJECT</span></footer>
+  </div>
+
+  <dialog id="help-dialog" aria-labelledby="help-title"><button class="icon-button dialog-close" id="close-help" aria-label="Close instructions"><svg class="icon"><use href="#i-close"/></svg></button><p class="eyebrow">THE SHORT VERSION</p><h2 id="help-title">Read the field.</h2><p class="dialog-intro">Open every safe square. Leave the mines alone.</p><div class="help-step"><span class="help-tile">1</span><div><h3>Numbers are your neighbors.</h3><p>A number counts the mines in the eight squares around it. Empty spaces open up automatically.</p></div></div><div class="help-step"><span class="help-tile flag"><svg class="icon"><use href="#i-flag"/></svg></span><div><h3>Mark what you know.</h3><p>Right-click to place a flag. On a phone, select Flag below the board, then tap a square. Tap again to remove it.</p></div></div><div class="help-step"><span class="help-tile safe"><svg class="icon"><use href="#i-check"/></svg></span><div><h3>Make a little room.</h3><p>Once a number has enough flags around it, double-click it to open the other neighbors. Incorrect flags can uncover a mine.</p></div></div><div class="keyboard-guide"><h3>Prefer the keyboard?</h3><p><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> Move <span><kbd>Enter</kbd> Reveal</span><span><kbd>F</kbd> Flag</span><span><kbd>C</kbd> Open neighbors</span></p></div><button class="primary-button" id="start-playing">Got it. Let’s play.</button></dialog>
+  <noscript><div class="noscript">Please enable JavaScript to play Minesweeper.</div></noscript>
+</body>
+</html>
